@@ -176,9 +176,11 @@ function App() {
                   alt=""
                   className="-mt-3 block lg:hidden"
                 />
-                Assistance disponible
-                <span className="font-medium text-highlight">
-                  à tout moment
+                <span className="whitespace-nowrap">
+                  Assistance disponible{" "}
+                  <span className="font-medium text-highlight">
+                    à tout moment
+                  </span>
                 </span>
                 <img
                   src="/check-icon.png"
