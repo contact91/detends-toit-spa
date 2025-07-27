@@ -177,35 +177,52 @@ export default function HeroSection() {
         </motion.div>
       </div>
 
-      {/* Video Modal - Still using Mux video */}
+      {/* Video Modal - Floating popup */}
       {showModal && (
-        <div
-          className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-[9999] touch-pan-y"
-          onClick={closeModal}
-        >
+        <>
+          {/* Backdrop */}
           <div
-            className="w-[70vw] h-[70vh] mx-4 relative"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <button
-              className="absolute top-4 right-4 text-white text-2xl hover:text-gray-300 z-10 bg-black bg-opacity-50 rounded-full w-8 h-8 flex items-center justify-center touch-manipulation"
-              onClick={closeModal}
+            className="fixed inset-0 bg-black/30 z-[9998]"
+            onClick={closeModal}
+          />
+          <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-[9999]">
+            <motion.div
+              className="w-[90vw] max-w-lg h-[50vh] max-h-[400px] relative bg-white rounded-2xl shadow-2xl overflow-hidden"
+              initial={{ opacity: 0, scale: 0.8, y: 50 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              transition={{ duration: 0.3, ease: "easeOut" }}
             >
-              ×
-            </button>
-            <div className="w-full h-full rounded-lg overflow-hidden">
-              <iframe
-                src="https://player.mux.com/013Y5XVLhcQrmdRCoJgzekZuiFFx4fPT1h02tX1chmp7s?metadata-video-title=Version+Final+v2+-+9x16&video-title=Version+Final+v2+-+9x16&controls=1"
-                width="100%"
-                height="100%"
-                allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
-                allowFullScreen
-                className="w-full h-full"
-                style={{ border: "none" }}
-              />
-            </div>
+              {/* Header with close button */}
+              <div className="absolute top-0 left-0 right-0 z-20 flex justify-between items-center p-4 bg-gradient-to-b from-black/20 to-transparent">
+                <h3 className="text-white text-lg font-medium">
+                  Découvrez notre expérience
+                </h3>
+                <button
+                  className="text-white text-2xl hover:text-gray-300 z-10 bg-black/30 hover:bg-black/50 rounded-full w-8 h-8 flex items-center justify-center touch-manipulation transition-colors"
+                  onClick={closeModal}
+                >
+                  ×
+                </button>
+              </div>
+
+              {/* Video container */}
+              <div className="w-full h-full rounded-2xl overflow-hidden">
+                <iframe
+                  src="https://player.mux.com/013Y5XVLhcQrmdRCoJgzekZuiFFx4fPT1h02tX1chmp7s?metadata-video-title=Version+Final+v2+-+9x16&video-title=Version+Final+v2+-+9x16&controls=1&autoplay=1"
+                  width="100%"
+                  height="100%"
+                  allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
+                  allowFullScreen
+                  className="w-full h-full rounded-2xl"
+                  style={{ border: "none" }}
+                />
+              </div>
+
+              {/* Bottom gradient overlay */}
+              <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-black/20 to-transparent pointer-events-none" />
+            </motion.div>
           </div>
-        </div>
+        </>
       )}
     </div>
   );
