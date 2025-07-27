@@ -3,8 +3,26 @@
 
 @custom-variant dark (&:is(.dark *));
 
+html {
+  overflow-x: hidden;
+  position: relative;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+body {
+  overflow-x: hidden;
+}
+
 * {
   font-family: "Roundo", sans-serif;
+  box-sizing: border-box;
+}
+
+/* Ensure no horizontal overflow */
+html,
+body {
+  overflow-x: hidden;
+  width: 100%;
 }
 
 @theme inline {
@@ -156,6 +174,25 @@
 }
 
 @layer utilities {
+  /* Form Input Focus Styles */
+  .form-input-focus {
+    outline: none !important;
+    border: 1px solid #f97316 !important;
+  }
+  .form-input-focus:focus {
+    outline: none !important;
+    border: 1px solid #f97316 !important;
+  }
+
+  /* Touch scrolling utilities */
+  .touch-pan-y {
+    touch-action: pan-y;
+  }
+
+  .touch-manipulation {
+    touch-action: manipulation;
+  }
+
   /* Global */
   .bg-global-1 {
     background-color: var(--global-bg-1);

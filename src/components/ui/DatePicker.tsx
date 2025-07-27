@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect, useRef } from "react";
 
 interface DatePickerProps {
   placeholder?: string;
@@ -6,6 +6,8 @@ interface DatePickerProps {
   onChange?: (value: string) => void;
   disabled?: boolean;
   className?: string;
+  isOpen?: boolean;
+  onToggle?: (isOpen: boolean) => void;
 }
 
 const DatePicker: React.FC<DatePickerProps> = ({
@@ -14,10 +16,38 @@ const DatePicker: React.FC<DatePickerProps> = ({
   onChange,
   disabled = false,
   className = "",
+  isOpen: controlledIsOpen,
+  onToggle,
 }) => {
   const [selectedValue, setSelectedValue] = useState(value);
-  const [isOpen, setIsOpen] = useState(false);
+  const [internalIsOpen, setInternalIsOpen] = useState(false);
   const [currentMonth, setCurrentMonth] = useState(new Date());
+  const datePickerRef = useRef<HTMLDivElement>(null);
+
+  // Use controlled state if provided, otherwise use internal state
+  const isOpen =
+    controlledIsOpen !== undefined ? controlledIsOpen : internalIsOpen;
+  const setIsOpen = onToggle || setInternalIsOpen;
+
+  // Handle clicks outside the date picker
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        datePickerRef.current &&
+        !datePickerRef.current.contains(event.target as Node)
+      ) {
+        setIsOpen(false);
+      }
+    };
+
+    if (isOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isOpen, setIsOpen]);
 
   const dayNames = ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"];
 
@@ -74,6 +104,12 @@ const DatePicker: React.FC<DatePickerProps> = ({
     }
   };
 
+  const handleToggle = () => {
+    if (!disabled) {
+      setIsOpen(!isOpen);
+    }
+  };
+
   const goToPreviousMonth = () => {
     const newMonth = new Date(currentMonth);
     newMonth.setMonth(currentMonth.getMonth() - 1);
@@ -92,7 +128,7 @@ const DatePicker: React.FC<DatePickerProps> = ({
   const displayText = selectedOption ? selectedOption.label : placeholder;
 
   const baseClasses =
-    "relative w-full bg-edittext-1 text-edittext-1 font-roundo font-light text-base sm:text-lg md:text-xl leading-6 tracking-wide rounded-none rounded-tr-[30px] rounded-br-[30px] rounded-bl-[30px] border-0 focus:outline-none focus:ring-2 focus:ring-global-3 transition-all duration-200 cursor-pointer";
+    "relative w-full bg-edittext-1 text-edittext-1 font-roundo font-light text-base sm:text-lg md:text-xl leading-6 tracking-wide rounded-none rounded-tr-[30px] rounded-br-[30px] rounded-bl-[30px] border-4 border-transparent form-input-focus transition-all duration-200 cursor-pointer";
 
   const paddingClasses = "pl-4 pr-12 py-3 sm:pl-6 sm:pr-14 sm:py-4";
 
@@ -121,11 +157,8 @@ const DatePicker: React.FC<DatePickerProps> = ({
   ];
 
   return (
-    <div className="relative w-full">
-      <div
-        className={datePickerClasses}
-        onClick={() => !disabled && setIsOpen(!isOpen)}
-      >
+    <div className="relative w-full" ref={datePickerRef}>
+      <div className={datePickerClasses} onClick={handleToggle}>
         <span className={selectedValue ? "text-global-1" : "text-edittext-1"}>
           {displayText}
         </span>
@@ -141,15 +174,15 @@ const DatePicker: React.FC<DatePickerProps> = ({
       </div>
 
       {isOpen && !disabled && (
-        <div className="absolute top-full left-0 right-0 z-20 bg-white border border-gray-200 rounded-bl-[30px] rounded-br-[30px] shadow-lg p-4 min-w-[320px]">
+        <div className="absolute top-full left-0 right-0 z-20 bg-white border border-gray-200 rounded-bl-[30px] rounded-br-[30px] shadow-lg p-4 min-w-[320px] touch-pan-y">
           {/* Calendar Header */}
           <div className="flex items-center justify-between mb-4">
             <button
               onClick={goToPreviousMonth}
-              className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+              className="p-2 hover:bg-gray-100 rounded-lg transition-colors duration-200 touch-manipulation"
             >
               <svg
-                className="w-5 h-5"
+                className="w-5 h-5 text-gray-600"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -167,10 +200,10 @@ const DatePicker: React.FC<DatePickerProps> = ({
             </h3>
             <button
               onClick={goToNextMonth}
-              className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+              className="p-2 hover:bg-gray-100 rounded-lg transition-colors duration-200 touch-manipulation"
             >
               <svg
-                className="w-5 h-5"
+                className="w-5 h-5 text-gray-600"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -190,7 +223,7 @@ const DatePicker: React.FC<DatePickerProps> = ({
             {dayNames.map((day) => (
               <div
                 key={day}
-                className="text-center text-sm font-medium text-gray-500 py-2"
+                className="p-2 text-center text-sm font-medium text-gray-500"
               >
                 {day}
               </div>
@@ -205,7 +238,7 @@ const DatePicker: React.FC<DatePickerProps> = ({
                 onClick={() => day.isSelectable && handleDateSelect(day.value)}
                 disabled={!day.isSelectable}
                 className={`
-                  p-2 text-sm rounded-lg transition-all duration-200
+                  p-2 text-sm rounded-lg transition-all duration-200 touch-manipulation
                   ${day.isCurrentMonth ? "text-global-1" : "text-gray-300"}
                   ${day.isToday ? "bg-highlight text-white font-medium" : ""}
                   ${day.isPast ? "text-gray-400 cursor-not-allowed" : ""}
