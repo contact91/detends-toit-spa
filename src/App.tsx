@@ -113,57 +113,67 @@ function App() {
               Notre Promesse Qualité, Sécurité, Sérénité{" "}
             </h1>
             <div className="flex flex-col items-start lg:items-end">
-              <span className="flex items-center gap-4 text-base sm:text-xl text-primary text-nowrap text-start lg:text-right">
+              <span className="flex items-center gap-4 text-base sm:text-xl text-primary text-start lg:text-right">
                 <img
                   src="/check-icon.png"
                   alt=""
                   className="-mt-3 block lg:hidden"
                 />
-                Matériel désinfecté &{" "}
-                <span className="font-medium text-highlight">certifié CE</span>
-                <img
-                  src="/check-icon.png"
-                  alt=""
-                  className="-mt-3 hidden lg:block"
-                />
-              </span>
-              <span className="flex items-center gap-4 text-base sm:text-xl text-primary text-nowrap text-start lg:text-right">
-                <img
-                  src="/check-icon.png"
-                  alt=""
-                  className="-mt-3 block lg:hidden"
-                />
-                <span className="font-medium text-highlight">
-                  Produits sûrs
+                <span className="whitespace-nowrap">
+                  Matériel désinfecté &{" "}
+                  <span className="font-medium text-highlight">
+                    certifié CE
+                  </span>
                 </span>
-                et homologués
                 <img
                   src="/check-icon.png"
                   alt=""
                   className="-mt-3 hidden lg:block"
                 />
               </span>
-              <span className="flex items-center gap-4 text-base sm:text-xl text-primary text-nowrap text-start lg:text-right">
+              <span className="flex items-center gap-4 text-base sm:text-xl text-primary text-start lg:text-right">
                 <img
                   src="/check-icon.png"
                   alt=""
                   className="-mt-3 block lg:hidden"
                 />
-                Installation & formation à domicile
+                <span className="whitespace-nowrap">
+                  <span className="font-medium text-highlight">
+                    Produits sûrs
+                  </span>{" "}
+                  et homologués
+                </span>
                 <img
                   src="/check-icon.png"
                   alt=""
                   className="-mt-3 hidden lg:block"
                 />
               </span>
-              <span className="flex items-center gap-4 text-base sm:text-xl text-primary text-nowrap text-start lg:text-right">
+              <span className="flex items-center gap-4 text-base sm:text-xl text-primary text-start lg:text-right">
                 <img
                   src="/check-icon.png"
                   alt=""
                   className="-mt-3 block lg:hidden"
                 />
-                <span className="font-medium text-highlight">Sécurité</span>
-                enfants garantie{" "}
+                <span className="whitespace-nowrap">
+                  Installation & formation à domicile
+                </span>
+                <img
+                  src="/check-icon.png"
+                  alt=""
+                  className="-mt-3 hidden lg:block"
+                />
+              </span>
+              <span className="flex items-center gap-4 text-base sm:text-xl text-primary text-start lg:text-right">
+                <img
+                  src="/check-icon.png"
+                  alt=""
+                  className="-mt-3 block lg:hidden"
+                />
+                <span className="whitespace-nowrap">
+                  <span className="font-medium text-highlight">Sécurité</span>{" "}
+                  enfants garantie
+                </span>
                 <img
                   src="/check-icon.png"
                   alt=""
