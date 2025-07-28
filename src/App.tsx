@@ -110,7 +110,7 @@ function App() {
             viewport={{ once: true, margin: "-100px" }}
           >
             <h1 className="text-primary text-5xl sm:text-5xl md:text-6xl lg:text-7xl font-light text-center lg:text-end leading-tight">
-              Notre Promesse Qualité, Sécurité, Sérénité{" "}
+              Notre Promesse: Qualité, Sécurité, Sérénité{" "}
             </h1>
             <div className="flex flex-col items-start lg:items-end">
               <span className="flex items-center gap-4 text-base sm:text-xl text-primary text-start lg:text-right">
