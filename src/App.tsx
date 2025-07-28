@@ -265,7 +265,7 @@ function App() {
               >
                 <div className="overflow-hidden mb-6 flex items-center justify-center">
                   <img
-                    src="/spa-4-places.png"
+                    src="/spa4.webp"
                     alt="Spa 4 places"
                     className="object-cover w-full h-full"
                   />
@@ -313,7 +313,7 @@ function App() {
               >
                 <div className="overflow-hidden mb-6 flex items-center justify-center">
                   <img
-                    src="/spa-6-places.png"
+                    src="/spa6.webp"
                     alt="Spa 4 places"
                     className="object-cover w-full h-full"
                   />
@@ -361,7 +361,7 @@ function App() {
               >
                 <div className="overflow-hidden mb-6 flex items-center justify-center">
                   <img
-                    src="/spa-7-places.png"
+                    src="/spa7.webp"
                     alt="Spa 4 places"
                     className="object-cover w-full h-full"
                   />

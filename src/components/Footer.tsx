@@ -33,10 +33,10 @@ const Footer: React.FC = () => {
   ];
 
   const contactInfo = [
-    { icon: "/img_proicons_phone.svg", text: "+596 696 98 76 54" },
+    { icon: "/img_proicons_phone.svg", text: "+596 696 50 26 88" },
     {
       icon: "/img_vector_yellow_900.svg",
-      text: "le-mail@détendstoit.com",
+      text: "contact@detends-toit.com",
     },
     { icon: "/img_search.svg", text: "Martinique, FRANCE" },
   ];
